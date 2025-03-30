@@ -40,12 +40,32 @@ class App:
         selected_currencies = [text for text, var in self.currencies.items() if var.get() == 1]
         if selected_currencies:
             for currency in selected_currencies:
-                print(f"Converting {currency}")
+                amount = float(self.usdamt.get())
+
+                #conversions:
+                euroconversion = amount * 1.08
+                poundconversion = amount * 0.77
+                canadianconversion = amount * 1.43
+                yenconversion = amount * 150.06
+
+                if currency == "💵USD to EUR💶":
+                    converted_amount = euroconversion
+
+                if currency == '💵USD to GBP💷':
+                    converted_amount = poundconversion
+
+                if currency == '💵USD to CAD💰':
+                    converted_amount = canadianconversion
+
+                if currency == '💵USD to JPY💴':
+                    converted_amount = yenconversion
+
+                print(f"Converting {amount} from {currency}")
+
+                print(f"Converted amount: {converted_amount} from {currency}")
         else:
             print("Please select a currency to convert from.")
 
 App(tk.Tk())
 
-
-print("Hello")
 tk.mainloop()
