@@ -4,7 +4,7 @@ class App:
     def __init__(self, root):
         self.root = root
         self.root.title("Currency Converter")
-        self.root.geometry("300x400")
+        self.root.geometry("300x500")
         self.create_widgets()
 
     def create_widgets(self):
@@ -14,21 +14,15 @@ class App:
         self.select = tk.Label(self.root, text="Select currency to convert from:", font=("Arial", 16))
         self.select.pack()
 
-        self.usdtoeur = tk.IntVar()
-        self.usdtoeurbtn = tk.Checkbutton(self.root, text="💵USD to EUR💶", variable=self.usdtoeur)
-        self.usdtoeurbtn.pack(pady=10)
+        self.currencies = {
+            "💵USD to EUR💶": tk.IntVar(),
+            "💵USD to GBP💷": tk.IntVar(),
+            "💵USD to CAD💰": tk.IntVar(),
+            "💵USD to JPY💴": tk.IntVar()
+        }
 
-        self.usdtogbp = tk.IntVar()
-        self.usdtogbpbtn = tk.Checkbutton(self.root, text="💵USD to GBP💷", variable=self.usdtogbp)
-        self.usdtogbpbtn.pack()
-
-        self.usdtocad = tk.IntVar()
-        self.usdtocadbtn = tk.Checkbutton(self.root, text="💵USD to CAD💰", variable=self.usdtocad)
-        self.usdtocadbtn.pack(pady=10)
-
-        self.usdtojpy = tk.IntVar()
-        self.usdtojpybtn = tk.Checkbutton(self.root, text="💵USD to JPY💴", variable=self.usdtojpy)
-        self.usdtojpybtn.pack()
+        for text, var in self.currencies.items():
+            tk.Checkbutton(self.root, text=text, variable=var).pack(pady=10)
 
         self.usdamtlabel = tk.Label(self.root, text="💵 How many USD will you convert? 💵", font=("Arial", 16))
         self.usdamtlabel.pack(pady=10)
@@ -39,22 +33,17 @@ class App:
         self.button = tk.Button(self.root, text="Convert!", command=self.convert_func)
         self.button.pack(pady=10)
 
+        self.amtlabel = tk.Label(self.root, text="Amount:", font=("Arial", 16))
+        self.amtlabel.pack()
+
     def convert_func(self):
-        if self.usdtoeur.get() == 1:
-            print("?? Converting USD to EUR ??")
-
-        elif self.usdtogbp.get() == 1:
-            print("?? Converting USD to GBP ??")
-
-        elif self.usdtocad.get() == 1:
-            print("?? Converting USD to CAD ??")
-
-        elif self.usdtojpy.get() == 1:
-            print("?? Converting USD to JPY ??")
-
+        selected_currencies = [text for text, var in self.currencies.items() if var.get() == 1]
+        if selected_currencies:
+            for currency in selected_currencies:
+                print(f"Converting {currency}")
         else:
             print("Please select a currency to convert from.")
-            
+
 App(tk.Tk())
 
 
