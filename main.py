@@ -4,7 +4,7 @@ class App:
     def __init__(self, root):
         self.root = root
         self.root.title("Currency Converter")
-        self.root.geometry("300x500")
+        self.root.geometry("400x500")
         self.create_widgets()
 
     def create_widgets(self):
@@ -33,8 +33,17 @@ class App:
         self.button = tk.Button(self.root, text="Convert!", command=self.convert_func)
         self.button.pack(pady=10)
 
-        self.amtlabel = tk.Label(self.root, text="Amount:", font=("Arial", 16))
-        self.amtlabel.pack()
+        self.euramtlabel = tk.Label(self.root, text="Euros: N/A", font=("Arial", 16))
+        self.euramtlabel.pack()
+
+        self.gpbamtlabel = tk.Label(self.root, text="Pounds: N/A", font=("Arial", 16))
+        self.gpbamtlabel.pack()
+
+        self.cadamtlabel = tk.Label(self.root, text="Canadian: N/A", font=("Arial", 16))
+        self.cadamtlabel.pack()
+
+        self.yenamtlabel = tk.Label(self.root, text="Yen: N/A", font=("Arial", 16))
+        self.yenamtlabel.pack()
 
     def convert_func(self):
         selected_currencies = [text for text, var in self.currencies.items() if var.get() == 1]
@@ -50,19 +59,20 @@ class App:
 
                 if currency == "💵USD to EUR💶":
                     converted_amount = euroconversion
+                    self.euramtlabel.config(text=f"{converted_amount} Euros from {currency}")
 
                 if currency == '💵USD to GBP💷':
                     converted_amount = poundconversion
+                    self.gpbamtlabel.config(text=f"{converted_amount} Pounds from {currency}")
 
                 if currency == '💵USD to CAD💰':
                     converted_amount = canadianconversion
+                    self.cadamtlabel.config(text=f"{converted_amount} Canadian from {currency}")
 
                 if currency == '💵USD to JPY💴':
                     converted_amount = yenconversion
+                    self.yenamtlabel.config(text=f"{converted_amount} Yen from {currency}")
 
-                print(f"Converting {amount} from {currency}")
-
-                print(f"Converted amount: {converted_amount} from {currency}")
         else:
             print("Please select a currency to convert from.")
 
