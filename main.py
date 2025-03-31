@@ -30,6 +30,9 @@ class App:
         self.usdamt = tk.Entry(self.root, width=10)
         self.usdamt.pack()
 
+        self.validlabel = tk.Label(self.root, text="Invalid input, please try again.")
+        self.validlabel.pack_forget()
+
         self.button = tk.Button(self.root, text="Convert!", command=self.convert_func)
         self.button.pack(pady=10)
 
@@ -47,9 +50,18 @@ class App:
 
     def convert_func(self):
         selected_currencies = [text for text, var in self.currencies.items() if var.get() == 1]
+        self.validlabel.pack_forget()
         if selected_currencies:
             for currency in selected_currencies:
-                amount = float(self.usdamt.get())
+                amount = self.usdamt.get()
+
+                try: 
+                    amount = float(amount)
+
+                except:
+                    print("Amount is not a valid input")
+                    self.validlabel.pack()
+                    break
 
                 #conversions:
                 euroconversion = amount * 1.08
