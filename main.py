@@ -4,7 +4,7 @@ class App:
     def __init__(self, root):
         self.root = root
         self.root.title("Currency Converter")
-        self.root.geometry("400x500")
+        self.root.geometry("400x600")
         self.create_widgets()
 
     def create_widgets(self):
